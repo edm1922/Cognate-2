@@ -1,0 +1,29 @@
+const int L 3
+const int R 2
+
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+pinMode(L,INPUT);
+pinMode(R,INPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int LEFT,RIGHT;
+
+  LEFT = digitalRead(L);
+  RIGHT = digitalRead(R);
+
+  if(LEFT == LOW){
+
+    Serial.println("LEFT");
+  }else if(RIGHT == LOW){
+
+    Serial.println("RIGHT");
+  }else{
+
+    Serial.println("No detection");
+  }
+
+}
