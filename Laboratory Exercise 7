@@ -1,0 +1,205 @@
+int L_EN = 11;
+int R_EN = 6;
+int trigPin = 13;  
+int echoPin = 12;
+const int L1 = 10;
+const int L2 = 9;
+const int R1 = 5;
+const int R2 = 3;
+const int LS = 2;
+const int RS = 4;
+const int LB = A0;
+const int RB = A1;
+ 
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  pinMode(trigPin, OUTPUT);  // Set up the ultrasonic sensor pins
+  pinMode(echoPin, INPUT);
+  pinMode(L1, OUTPUT);
+  pinMode(L2, OUTPUT);
+  pinMode(R1,OUTPUT);
+  pinMode(R2,OUTPUT);
+  pinMode(LS, INPUT);
+  pinMode(RS,INPUT);
+  pinMode(LB,INPUT);
+  pinMode(RB,INPUT);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int Leftside,Rightside,Leftbottom,Rightbottom;
+   long duration, distance; // Variables for ultrasonic sensor
+  digitalWrite(trigPin, LOW);  // Send a pulse to the ultrasonic sensor
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);  // Measure the duration of the echo
+  distance = (duration / 2) / 29.1;  
+  Rightside = digitalRead(LS);
+  Leftside = digitalRead(RS);
+  Rightbottom = digitalRead(RB);
+  Leftbottom = digitalRead(LB);
+  //Serial.println(Rightside);
+ if(distance < 30){
+    sugod();
+
+  }/*else if(Leftbottom == HIGH){
+
+    atras();
+    delay(500);
+    kanan();
+    delay(1500);
+    sugod();
+    delay(1000);
+   
+
+  }else if(Rightbottom == HIGH){
+
+    atras();
+    delay(500);
+    kaliwa();
+    delay(1500);
+    sugod();
+    delay(1000);
+   
+   
+
+  }*/else if(Rightside == LOW){
+      atras();
+      delay(150);
+      kaliwa();
+      delay(150);
+      sugod();
+      delay(500);
+     
+    
+  }else if(Leftside == LOW){
+      atras();
+      delay(150);
+      kanan();
+      delay(150);
+      sugod();
+      delay(500);
+      
+  }else{
+
+    // abante();
+    untat();
+  }
+
+// this comment is for testing my sensors
+  /*if(Rightside == LOW){
+      atras();
+      delay(200);
+      kanan_B();
+      sugod();
+      delay(200);
+
+     
+  
+  }else if(Leftside == LOW){
+     atras();
+     delay(200);
+     kaliwa_B();
+     sugod();
+     delay(200);
+     
+
+  }else{
+
+analogWrite(L_EN,0);
+digitalWrite(L1, LOW);
+digitalWrite(L2,LOW);
+analogWrite(R_EN,0);
+digitalWrite(R1, LOW);
+digitalWrite(R2,LOW);
+
+  }*/
+
+}
+//function for going forward but faster
+void sugod(){
+
+analogWrite(L_EN,255);
+digitalWrite(L1, HIGH);
+digitalWrite(L2,LOW);
+analogWrite(R_EN,255);
+digitalWrite(R1, LOW);
+digitalWrite(R2,HIGH);
+
+}
+//function for going forward but slowly
+void abante(){
+
+analogWrite(L_EN,100);
+digitalWrite(L1, HIGH);
+digitalWrite(L2,LOW);
+analogWrite(R_EN,100);
+digitalWrite(R1, LOW);
+digitalWrite(R2,HIGH);
+
+
+}
+//function for turning left
+void kaliwa(){
+
+analogWrite(L_EN,150);
+digitalWrite(L1, HIGH);
+digitalWrite(L2,LOW);
+analogWrite(R_EN,150);
+digitalWrite(R1, HIGH);
+digitalWrite(R2,LOW);
+
+
+}
+//function for going backward
+void atras(){
+analogWrite(L_EN,255);
+digitalWrite(L1, LOW);
+digitalWrite(L2,HIGH);
+analogWrite(R_EN,255);
+digitalWrite(R1, HIGH); // atras
+digitalWrite(R2,LOW);
+
+}
+//function for turning right 
+void kanan(){
+
+analogWrite(L_EN,150);
+digitalWrite(L1, LOW);
+digitalWrite(L2,HIGH);
+analogWrite(R_EN,150);
+digitalWrite(R1, LOW);
+digitalWrite(R2,HIGH);
+
+
+}
+
+
+void untat(){
+
+analogWrite(L_EN,0);
+digitalWrite(L1, HIGH);
+digitalWrite(L2,LOW);
+analogWrite(R_EN,0);
+digitalWrite(R1, HIGH);
+digitalWrite(R2,LOW);
+delay(1500);
+
+}
+
+/*void iwas(){
+
+      atras();
+      delay(250);
+      kaliwa();
+      delay(150);
+      atras();
+      delay(200);
+      sugod();
+      delay(200);
+
+}*/
